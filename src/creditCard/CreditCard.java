@@ -10,7 +10,7 @@ public class CreditCard extends Account {
     private BigDecimal limit;
     private BigDecimal balance;
     private BigDecimal purchase;
-    private int taxFee;
+    private BigDecimal taxFee;
 
     public CreditCard(String user, String cpf, int creditCardNumber, int securityNumber, Date birthdate) {
         super(user, cpf, creditCardNumber, securityNumber, birthdate);
@@ -43,18 +43,17 @@ public class CreditCard extends Account {
         return purchase;
     }
 
-    public void setPurchase(BigDecimal purchase) {
-        if (new BigDecimal(String.valueOf(balance)).subtract(new BigDecimal(String.valueOf(purchase)) {
-            System.out.println("Compra aprovada");
-        } {
-            System.out.println("Compra recusada");
-        }
-    }
-    public BigDecimal getTaxFee() {
-        return new BigDecimal(String.valueOf(balance)).multiply(new BigDecimal("0.10"));
+    public void setTaxFee(BigDecimal taxFee) {
+        BigDecimal balance = taxFee.multiply(BigDecimal.valueOf(0.05));
     }
 
-    public void setTaxFee(int taxFee) {
-        this.taxFee = taxFee;
+    public BigDecimal setPurchase(BigDecimal purchase) {
+        if (purchase.compareTo(balance) <= 0) {
+            System.out.println("Compra aprovada");
+        } else {
+            System.out.println("Compra não aprovada. O limite não é o suficiente.");
+        }
+        return purchase.multiply(taxFee);
     }
 }
+
